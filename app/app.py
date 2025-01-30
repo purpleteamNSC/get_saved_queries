@@ -1,7 +1,7 @@
 import os
 import requests
 import pandas as pd
-
+import platform
 
 # LADO FIREEYE
 def get_saved_searches_f(helix_id, apikey, empresa):
@@ -71,18 +71,27 @@ def save_results_to_excel(results, empresa):
     )  # Cria um DataFrame a partir dos resultados filtrados
     df.to_excel(f"{empresa}.xlsx", index=False)  # Salva o DataFrame em um arquivo XLSX
 
+#IDENTIFICACAO E CLEAR DA OS
+def clear_os():
+    os_identified = platform.system()
+    if os_identified == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 # MENU
 def receber_entrada(lado):
     if lado == "1":
-        os.system("cls")
+        clear_os()
+        # os.system("cls")
         nome_empresa = input("Digite o nome da empresa: ")
         helix_id = input("Digite seu Helix ID: ")
         apikey = input("Digite sua API Key: ")
         get_saved_searches_f(helix_id, apikey, nome_empresa)
         return None
     elif lado == "2":
-        os.system("cls")
+        clear_os()
+        # os.system("cls")
         nome_empresa = input("Digite o nome da empresa: ")
         helix_id = input("Digite seu Helix ID: ")
         client_id = input("Digite seu Client ID: ")
@@ -91,7 +100,8 @@ def receber_entrada(lado):
         get_saved_searches_t(helix_id, access_token, nome_empresa)
         return None
     else:
-        os.system("cls")
+        clear_os()
+        # os.system("cls")
         print("Lado inválido. Por favor, escolha '1 - FireEye' ou '2 - Trellix'.")
         return None
 
@@ -99,19 +109,23 @@ def receber_entrada(lado):
 # LOOP
 while True:
     try:
-        os.system("cls")
+        clear_os()
+        # os.system("cls")
         lado = input(
             "Digite o lado (1 - FireEye ou 2 - Trellix) ou '0 - sair' para encerrar: "
         )
         if lado == "0":
-            os.system("cls")
+            clear_os()
+        # os.system("cls")
             print("Programa encerrado!")
             break
         dados = receber_entrada(lado)
         if dados:
-            os.system("cls")
+            clear_os()
+        # os.system("cls")
             print("Dados salvos com sucesso!")
     except KeyboardInterrupt:
-        os.system("cls")
+        clear_os()
+        # os.system("cls")
         print("Programa encerrado!")
         break
